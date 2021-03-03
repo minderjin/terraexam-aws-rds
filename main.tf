@@ -80,7 +80,7 @@ module "db" {
 
   # DB subnet group
   #   subnet_ids = database_subnet_group
-  db_subnet_group_name = database_subnet_group
+  db_subnet_group_name = local.database_subnet_group
 
   # DB parameter group
   family = "mysql5.7"
