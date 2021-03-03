@@ -23,7 +23,7 @@
 #
 
 region = "us-west-2"
-name = "example"
+name   = "example"
 tags = {
   Terraform   = "true"
   Environment = "dev"

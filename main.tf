@@ -28,7 +28,7 @@ data "terraform_remote_state" "sg" {
 
 locals {
   nick = "${var.name}-mysql"
-  
+
   vpc_id                = data.terraform_remote_state.vpc.outputs.vpc_id
   vpc_cidr_block        = data.terraform_remote_state.vpc.outputs.vpc_cidr_block
   public_subnet_ids     = data.terraform_remote_state.vpc.outputs.public_subnets
@@ -65,8 +65,8 @@ module "db" {
 
   vpc_security_group_ids = db_security_group_ids
 
-  #   maintenance_window = "Mon:00:00-Mon:03:00"
-  #   backup_window      = "03:00-06:00"
+  maintenance_window = "Mon:00:00-Mon:03:00"
+  backup_window      = "03:00-06:00"
 
   multi_az = false
 
@@ -79,7 +79,7 @@ module "db" {
   enabled_cloudwatch_logs_exports = ["audit", "general"]
 
   # DB subnet group
-#   subnet_ids = database_subnet_group
+  #   subnet_ids = database_subnet_group
   db_subnet_group_name = database_subnet_group
 
   # DB parameter group
@@ -100,25 +100,45 @@ module "db" {
       value = "utf8"
     },
     {
+      name  = "character_set_connection"
+      value = "utf8"
+    },
+    {
+      name  = "character_set_database"
+      value = "utf8"
+    },
+    {
+      name  = "character_set_filesystem"
+      value = "utf8"
+    },
+    {
+      name  = "character_set_results"
+      value = "utf8"
+    },
+    {
       name  = "character_set_server"
       value = "utf8"
+    },
+    {
+      name  = "time_zone"
+      value = "Asia/Seoul"
     }
   ]
 
-  options = [
-    {
-      option_name = "MARIADB_AUDIT_PLUGIN"
+#   options = [
+#     {
+#       option_name = "MARIADB_AUDIT_PLUGIN"
 
-      option_settings = [
-        {
-          name  = "SERVER_AUDIT_EVENTS"
-          value = "CONNECT"
-        },
-        {
-          name  = "SERVER_AUDIT_FILE_ROTATIONS"
-          value = "37"
-        },
-      ]
-    },
-  ]
+#       option_settings = [
+#         {
+#           name  = "SERVER_AUDIT_EVENTS"
+#           value = "CONNECT"
+#         },
+#         {
+#           name  = "SERVER_AUDIT_FILE_ROTATIONS"
+#           value = "37"
+#         },
+#       ]
+#     },
+#   ]
 }
