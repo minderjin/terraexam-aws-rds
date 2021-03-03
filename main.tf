@@ -63,7 +63,7 @@ module "db" {
   password = "YourPwdShouldBeLongAndSecure!"
   port     = "3306"
 
-  vpc_security_group_ids = db_security_group_ids
+  vpc_security_group_ids = local.db_security_group_ids
 
   maintenance_window = "Mon:00:00-Mon:03:00"
   backup_window      = "03:00-06:00"
