@@ -58,15 +58,15 @@ module "db" {
   storage_encrypted = false
 
   # kms_key_id        = "arm:aws:kms:<region>:<account id>:key/<kms key id>"
-  name     = "demodb"
+  name     = "${var.name}"
   username = "admin"
   password = "YourPwdShouldBeLongAndSecure!"
   port     = "3306"
 
   vpc_security_group_ids = local.db_security_group_ids
 
-  maintenance_window = "Mon:00:00-Mon:03:00"
-  backup_window      = "03:00-06:00"
+  maintenance_window = "Sat:16:00-Sat:19:00"
+  backup_window      = "16:00-19:00"
 
   multi_az = false
 
@@ -76,7 +76,7 @@ module "db" {
   tags = var.tags
 
   #   alert, audit, error, general, listener, slowquery, trace, postgresql (PostgreSQL), upgrade (PostgreSQL)
-  enabled_cloudwatch_logs_exports = ["audit", "general"]
+  enabled_cloudwatch_logs_exports = ["audit", "general", "error", "slowquery"]
 
   # DB subnet group
   #   subnet_ids = database_subnet_group
