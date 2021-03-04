@@ -65,7 +65,7 @@ module "db" {
 
   vpc_security_group_ids = local.db_security_group_ids
 
-  maintenance_window = "Sat:16:00-Sat:19:00"
+  maintenance_window = "Sat:19:00-Sat:21:00"
   backup_window      = "16:00-19:00"
 
   multi_az = false
