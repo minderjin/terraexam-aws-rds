@@ -65,7 +65,7 @@ module "db" {
   username               = var.rds_username
   password               = var.rds_password
   port                   = var.rds_port
-  vpc_security_group_ids = [local.db_security_group_id]
+  vpc_security_group_ids = local.db_security_group_ids
   maintenance_window     = var.rds_maintenance_window
   backup_window          = var.rds_backup_window
   multi_az               = var.rds_multi_az
@@ -79,7 +79,7 @@ module "db" {
   # DB subnet group
   # db_subnet_group_name   = local.database_subnet_group
   create_db_subnet_group = true
-  subnet_ids = local.database_subnets
+  subnet_ids = local.database_subnet_ids
   
   # DB parameter group
   family = var.rds_param_family
